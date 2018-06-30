@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lunatic.springboot.security.persistence.ext.mapper.UserRoleMapper">
+
+    <resultMap id="UserRoleMap" type="cn.lunatic.springboot.security.persistence.auto.model.RoleInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <select id="selectByUserId" resultMap="UserRoleMap">
+        select r.id,r.name from role_info r, user_role_relation ur where r.id=ur.role_id and ur.user_id=#{id}
+    </select>
+</mapper>

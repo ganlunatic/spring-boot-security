@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta content="text/css" charset="UTF-8">
+    <title sec:authentication="name"></title>
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.css}">
+
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
+        .started-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Security演示</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a th:href="@{/}">首页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="started-template">
+        <h1 th:text="${msg.title}"></h1>
+
+        <p class="bg-primary" th:text="${msg.content}"></p>
+
+        <div sec:authorize="hasRole('admin')">
+            <p class="bg-info" th:text="${msg.etraInfo}"></p>
+
+        </div>
+
+        <div sec:authorize="hasRole('user')">
+            <p class="bg-info">Nothing To Show!</p>
+        </div>
+
+        <form name="form" th:action="@{/logout}" action="/logout" method="post">
+            <input type="submit" id="login" value="Logout" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
